@@ -4,61 +4,148 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Hunk</title>
+  
+  <!-- Favicon (optional) -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+
   <style>
+    :root {
+      --bg-light: linear-gradient(135deg, #ff8a00, #e52e71);
+      --bg-dark: #1a1a1a;
+      --text-light: white;
+      --text-dark: #e52e71;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Orbitron', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #ff8a00, #e52e71);
-      color: white;
+      background: var(--bg-light);
+      color: var(--text-light);
       text-align: center;
+      transition: background 0.5s, color 0.5s;
     }
+
     img {
       width: 150px;
       height: 150px;
       border-radius: 50%;
       border: 3px solid white;
       margin-bottom: 20px;
+      animation: zoomIn 1s ease-out;
     }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     h1 {
       font-size: 3em;
       margin: 0;
     }
+
     p {
       font-size: 1.2em;
       margin-top: 10px;
     }
+
     .buttons {
       margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
+
     .buttons a {
       text-decoration: none;
       background: white;
       color: #e52e71;
       padding: 10px 20px;
       border-radius: 25px;
-      margin: 0 10px;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s;
     }
+
     .buttons a:hover {
       background: #f2f2f2;
+      transform: scale(1.05);
+    }
+
+    .toggle-mode {
+      margin-top: 40px;
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .dark-mode .buttons a {
+      background: var(--text-dark);
+      color: white;
+    }
+
+    .dark-mode .buttons a:hover {
+      background: #333;
+    }
+
+    .dark-mode .toggle-mode {
+      border-color: var(--text-dark);
+      color: var(--text-dark);
+    }
+
+    @media screen and (max-width: 500px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .buttons a {
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Replace the image source with your logo file -->
+
   <img src="logo.png" alt="Smart Hunk Logo" />
   <h1>Smart Hunk</h1>
-  <p>Welcome to my colorful world of coding and creativity!</p>
+  <p>Welcome to my colorful and creative space!</p>
 
   <div class="buttons">
     <a href="#">Projects</a>
-    <a href="#">About Me</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
   </div>
+
+  <button class="toggle-mode" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+
 </body>
 </html>
