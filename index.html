@@ -1,159 +1,183 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart Hunk</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg-light: #f4f4f4;
-      --bg-dark: #1a1a1a;
-      --text-light: #000;
-      --text-dark: #fff;
-      --accent: #007bff;
-    }body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: var(--bg-light);
-  color: var(--text-light);
-  transition: background 0.3s, color 0.3s;
-}
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #f0f0f0;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-.dark-mode {
-  background: var(--bg-dark);
-  color: var(--text-dark);
-}
+    .dark-mode {
+      background-color: #121212;
+      color: #fff;
+    }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid #ccc;
-}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: inherit;
+      position: relative;
+    }
 
-.menu-icon {
-  font-size: 24px;
-  cursor: pointer;
-}
+    .menu-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
 
-.dark-toggle {
-  background: none;
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  border-radius: 20px;
-  padding: 5px 12px;
-  cursor: pointer;
-}
+    #modeIcon {
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      border: 2px solid #007BFF;
+      color: #007BFF;
+    }
 
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: -250px;
-  width: 200px;
-  height: 100%;
-  background: #222;
-  color: white;
-  padding-top: 60px;
-  transition: 0.3s;
-  z-index: 1000;
-}
+    .center-text {
+      text-align: center;
+      margin: 2rem 1rem;
+    }
 
-.side-menu a {
-  display: block;
-  padding: 12px;
-  color: white;
-  text-decoration: none;
-}
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
 
-.side-menu a:hover {
-  background: #444;
-}
+    .buttons button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 1.5rem;
+      background-color: #007BFF;
+      color: #fff;
+      cursor: pointer;
+    }
 
-.menu-open {
-  left: 0;
-}
+    .buttons button:hover {
+      background-color: #0056b3;
+    }
 
-main {
-  text-align: center;
-  padding: 60px 20px;
-}
+    #menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 200px;
+      height: 100%;
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 2rem 1rem;
+      transition: left 0.3s;
+      z-index: 1000;
+    }
 
-h1 {
-  font-size: 3em;
-  margin-bottom: 0.3em;
-}
+    #menu.open {
+      left: 0;
+    }
 
-p {
-  font-size: 1.2em;
-}
+    #menu a {
+      display: block;
+      color: white;
+      margin: 1rem 0;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
 
-.buttons a {
-  margin: 10px;
-  padding: 10px 20px;
-  background: var(--accent);
-  color: white;
-  text-decoration: none;
-  border-radius: 20px;
-  display: inline-block;
-}
+    footer {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
 
-footer {
-  background: #0d1117;
-  color: #aaa;
-  text-align: center;
-  font-size: 13px;
-  padding: 20px;
-}
+    .socials {
+      margin-bottom: 0.5rem;
+    }
 
-.social-icons img {
-  width: 20px;
-  margin: 0 8px;
-  vertical-align: middle;
-}
+    .socials a {
+      margin: 0 0.5rem;
+      color: inherit;
+      font-size: 1.3rem;
+      transition: transform 0.2s;
+    }
 
+    .socials a:hover {
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
-  <div class="side-menu" id="sideMenu">
-    <a href="/">Home</a>
-    <a href="/About/">About</a>
-    <a href="/Contact/">Contact</a>
-  </div>  <header>
-    <div class="menu-icon" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
-    <button class="dark-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-  </header>  <main>
+  <div id="menu">
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <header>
+    <i class="fas fa-bars menu-icon" onclick="toggleMenu()"></i>
+    <i class="fas fa-moon" id="modeIcon" onclick="toggleDarkMode()"></i>
+  </header>
+
+  <div class="center-text">
     <h1>Smart Hunk</h1>
     <p>Your gateway to creativity, inspiration, and digital exploration.</p>
-    <div class="buttons">
-      <a href="/About/">About</a>
-      <a href="/Contact/">Contact</a>
+  </div>
+
+  <div class="buttons">
+    <button onclick="location.href='#about'">About</button>
+    <button onclick="location.href='#contact'">Contact</button>
+  </div>
+
+  <footer>
+    <div class="socials">
+      <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
     </div>
-  </main>  <footer>
-    <div class="social-icons">
-      <a href="https://youtube.com/@SmartHunkOfficial" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
-      </a>
-      <a href="https://github.com/SmartHunk" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
-      </a>
-      <a href="https://instagram.com/SmartHunkOfficial" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
-      </a>
-    </div>
-    <div>
-      © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
-    </div>
-  </footer>  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-    }
+    <p>© 2024–2025 Smart Hunk. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const body = document.body;
+    const menu = document.getElementById("menu");
+    const modeIcon = document.getElementById("modeIcon");
 
     function toggleMenu() {
-      document.getElementById('sideMenu').classList.toggle('menu-open');
+      menu.classList.toggle("open");
     }
-  </script></body>
+
+    function toggleDarkMode() {
+      body.classList.toggle("dark-mode");
+      const isDark = body.classList.contains("dark-mode");
+      localStorage.setItem("darkMode", isDark);
+      modeIcon.className = isDark ? "fas fa-sun" : "fas fa-moon";
+    }
+
+    window.onload = () => {
+      const savedMode = localStorage.getItem("darkMode") === "true";
+      if (savedMode) {
+        body.classList.add("dark-mode");
+        modeIcon.className = "fas fa-sun";
+      }
+    };
+
+    // Close slide menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const isClickInside = menu.contains(event.target) || event.target.classList.contains('menu-icon');
+      if (!isClickInside) {
+        menu.classList.remove("open");
+      }
+    });
+  </script>
+</body>
   </html>
