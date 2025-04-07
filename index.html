@@ -1,145 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Hunk</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary-color: #ffffff;
-      --accent-color: #333333;
-      --highlight-color: #007BFF;
-    }
+      --bg-light: #f4f4f4;
+      --bg-dark: #1a1a1a;
+      --text-light: #000;
+      --text-dark: #fff;
+      --accent: #007bff;
+    }body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-light);
+  transition: background 0.3s, color 0.3s;
+}
 
-    body {
-      margin: 0;
-      font-family: 'Merriweather', serif;
-      background: linear-gradient(to bottom, #f2f2f2, #d6d6d6);
-      color: var(--accent-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 40px 20px;
-    }
+.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
 
-    img {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      border: 3px solid #007BFF;
-      margin-bottom: 20px;
-    }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+}
 
-    h1 {
-      font-size: 2.8em;
-      margin: 10px 0;
-      color: #222;
-    }
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
 
-    p {
-      font-size: 1.1em;
-      color: #444;
-      max-width: 500px;
-    }
+.dark-toggle {
+  background: none;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  border-radius: 20px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
 
-    .buttons {
-      margin: 30px 0;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 200px;
+  height: 100%;
+  background: #222;
+  color: white;
+  padding-top: 60px;
+  transition: 0.3s;
+  z-index: 1000;
+}
 
-    .buttons a {
-      text-decoration: none;
-      background: var(--highlight-color);
-      color: white;
-      padding: 10px 24px;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
+.side-menu a {
+  display: block;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+}
 
-    .buttons a:hover {
-      background: #0056b3;
-    }
+.side-menu a:hover {
+  background: #444;
+}
 
-    .toggle-mode {
-      background: transparent;
-      border: 2px solid var(--highlight-color);
-      color: var(--highlight-color);
-      padding: 10px 20px;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: all 0.3s ease;
-    }
+.menu-open {
+  left: 0;
+}
 
-    .toggle-mode:hover {
-      background: var(--highlight-color);
-      color: white;
-    }
+main {
+  text-align: center;
+  padding: 60px 20px;
+}
 
-    footer {
-      margin-top: auto;
-      width: 100%;
-      text-align: center;
-      padding: 20px 10px;
-      background-color: #222;
-      color: white;
-      font-size: 14px;
-    }
+h1 {
+  font-size: 3em;
+  margin-bottom: 0.3em;
+}
 
-    footer img {
-      width: 20px;
-      margin: 0 10px;
-      vertical-align: middle;
-    }
+p {
+  font-size: 1.2em;
+}
 
-    .social-icons {
-      margin-bottom: 10px;
-    }
+.buttons a {
+  margin: 10px;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  display: inline-block;
+}
 
-    @media screen and (max-width: 500px) {
-      h1 {
-        font-size: 2em;
-      }
+footer {
+  background: #0d1117;
+  color: #aaa;
+  text-align: center;
+  font-size: 13px;
+  padding: 20px;
+}
 
-      .buttons a {
-        padding: 8px 18px;
-        font-size: 14px;
-      }
+.social-icons img {
+  width: 20px;
+  margin: 0 8px;
+  vertical-align: middle;
+}
 
-      footer img {
-        width: 18px;
-      }
-    }
   </style>
 </head>
 <body>
-
-  <img src="logo.png" alt="Smart Hunk Logo" />
-  <h1>Smart Hunk</h1>
-  <p>Your gateway to creativity, inspiration, and digital exploration.</p>
-
-  <div class="buttons">
-    <a href="About/">About</a>
-    <a href="Contact/">Contact</a>
-  </div>
-
-  <button class="toggle-mode" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-    }
-  </script>
-
-  <footer>
+  <div class="side-menu" id="sideMenu">
+    <a href="/">Home</a>
+    <a href="/About/">About</a>
+    <a href="/Contact/">Contact</a>
+  </div>  <header>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    <button class="dark-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  </header>  <main>
+    <h1>Smart Hunk</h1>
+    <p>Your gateway to creativity, inspiration, and digital exploration.</p>
+    <div class="buttons">
+      <a href="/About/">About</a>
+      <a href="/Contact/">Contact</a>
+    </div>
+  </main>  <footer>
     <div class="social-icons">
       <a href="https://youtube.com/@SmartHunkOfficial" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
@@ -151,8 +144,16 @@
         <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
       </a>
     </div>
-    © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
-  </footer>
+    <div>
+      © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
+    </div>
+  </footer>  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
 
-</body>
-</html>
+    function toggleMenu() {
+      document.getElementById('sideMenu').classList.toggle('menu-open');
+    }
+  </script></body>
+  </html>
