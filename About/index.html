@@ -75,13 +75,13 @@
 <body>
   <!-- Dynamic Header and Footer Injection -->
   <script>
-    fetch("/header.html")
+    fetch("assets/header.html")
       .then(res => res.text())
       .then(data => {
         document.body.insertAdjacentHTML("afterbegin", data);
       });
 
-    fetch("/footer.html")
+    fetch("assets/footer.html")
       .then(res => res.text())
       .then(data => {
         document.body.insertAdjacentHTML("beforeend", data);
@@ -110,6 +110,6 @@
     <a class="back-home" href="../">← Back to Home</a>
   </div>
 
-  <script src="/shared.js" defer></script>
+  <script src="assets/shared.js" defer></script>
 </body>
 </html>
