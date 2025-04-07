@@ -4,67 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Hunk</title>
-  
-  <!-- Favicon (optional) -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg-light: linear-gradient(135deg, #ff8a00, #e52e71);
-      --bg-dark: #1a1a1a;
-      --text-light: white;
-      --text-dark: #e52e71;
+      --primary-color: #ffffff;
+      --accent-color: #333333;
+      --highlight-color: #007BFF;
     }
 
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Merriweather', serif;
+      background: linear-gradient(to bottom, #f2f2f2, #d6d6d6);
+      color: var(--accent-color);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
-      background: var(--bg-light);
-      color: var(--text-light);
-      text-align: center;
-      transition: background 0.5s, color 0.5s;
+      padding: 40px 20px;
     }
 
     img {
-      width: 150px;
-      height: 150px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
-      border: 3px solid white;
+      border: 3px solid #007BFF;
       margin-bottom: 20px;
-      animation: zoomIn 1s ease-out;
-    }
-
-    @keyframes zoomIn {
-      from {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
     }
 
     h1 {
-      font-size: 3em;
-      margin: 0;
+      font-size: 2.8em;
+      margin: 10px 0;
+      color: #222;
     }
 
     p {
-      font-size: 1.2em;
-      margin-top: 10px;
+      font-size: 1.1em;
+      color: #444;
+      max-width: 500px;
     }
 
     .buttons {
-      margin-top: 30px;
+      margin: 30px 0;
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
@@ -73,47 +56,52 @@
 
     .buttons a {
       text-decoration: none;
-      background: white;
-      color: #e52e71;
-      padding: 10px 20px;
-      border-radius: 25px;
+      background: var(--highlight-color);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 30px;
       font-weight: bold;
-      transition: background 0.3s, transform 0.3s;
+      transition: background 0.3s;
     }
 
     .buttons a:hover {
-      background: #f2f2f2;
-      transform: scale(1.05);
+      background: #0056b3;
     }
 
     .toggle-mode {
-      margin-top: 40px;
       background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 20px;
+      border: 2px solid var(--highlight-color);
+      color: var(--highlight-color);
+      padding: 10px 20px;
+      border-radius: 30px;
       cursor: pointer;
-      font-weight: bold;
+      margin-top: 20px;
+      transition: all 0.3s ease;
     }
 
-    .dark-mode {
-      background: var(--bg-dark);
-      color: var(--text-dark);
-    }
-
-    .dark-mode .buttons a {
-      background: var(--text-dark);
+    .toggle-mode:hover {
+      background: var(--highlight-color);
       color: white;
     }
 
-    .dark-mode .buttons a:hover {
-      background: #333;
+    footer {
+      margin-top: auto;
+      width: 100%;
+      text-align: center;
+      padding: 20px 10px;
+      background-color: #222;
+      color: white;
+      font-size: 14px;
     }
 
-    .dark-mode .toggle-mode {
-      border-color: var(--text-dark);
-      color: var(--text-dark);
+    footer img {
+      width: 20px;
+      margin: 0 10px;
+      vertical-align: middle;
+    }
+
+    .social-icons {
+      margin-bottom: 10px;
     }
 
     @media screen and (max-width: 500px) {
@@ -122,7 +110,12 @@
       }
 
       .buttons a {
-        padding: 8px 16px;
+        padding: 8px 18px;
+        font-size: 14px;
+      }
+
+      footer img {
+        width: 18px;
       }
     }
   </style>
@@ -131,7 +124,7 @@
 
   <img src="logo.png" alt="Smart Hunk Logo" />
   <h1>Smart Hunk</h1>
-  <p>Welcome to my colorful and creative space!</p>
+  <p>Your gateway to creativity, inspiration, and digital exploration.</p>
 
   <div class="buttons">
     <a href="About/">About</a>
@@ -145,24 +138,21 @@
       document.body.classList.toggle('dark-mode');
     }
   </script>
-  
-<!-- Space before footer -->
-<div style="hight: 1000px;"></div>
 
-<!-- Footer Section -->
-<footer style="text-align: center; padding: 15px; background: linear-gradient(90deg, #4e54c8, #8f94fb); color: #f0f0f0; font-size: 13px; font-family: 'Segoe UI', sans-serif;">
-  <div style="margin-bottom: 10px;">
-    <a href="https://youtube.com/@SmartHunkOfficial" target="_blank" style="margin: 0 10px;">
-      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" width="18" style="vertical-align: middle;">
-    </a>
-    <a href="https://github.com/SmartHunk" target="_blank" style="margin: 0 10px;">
-      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="18" style="vertical-align: middle;">
-    </a>
-    <a href="https://instagram.com/SmartHunkOfficial" target="_blank" style="margin: 0 10px;">
-      <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="18" style="vertical-align: middle;">
-    </a>
-  </div>
-  © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
-</footer>
+  <footer>
+    <div class="social-icons">
+      <a href="https://youtube.com/@SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+      </a>
+      <a href="https://github.com/SmartHunk" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+      </a>
+      <a href="https://instagram.com/SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+      </a>
+    </div>
+    © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
+  </footer>
+
 </body>
 </html>
