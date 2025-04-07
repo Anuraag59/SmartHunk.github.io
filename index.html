@@ -2,199 +2,208 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Hunk</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg-light: #f4f4f4;
+      --bg-dark: #1a1a1a;
+      --text-light: #000;
+      --text-dark: #fff;
+      --accent: #007bff;
+    }
+
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
       transition: background 0.3s, color 0.3s;
-      background: #f4f4f4;
-      color: #000;
     }
 
-    body.dark-mode {
-      background: #121212;
-      color: #fff;
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background: transparent;
-      font-size: 18px;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
     }
 
     .menu-icon {
-      cursor: pointer;
       font-size: 24px;
-    }
-
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .toggle-icon {
       cursor: pointer;
-      font-size: 22px;
+    }
+
+    .dark-toggle {
+      font-size: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--accent);
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 200px;
+      height: 100%;
+      background: #222;
+      color: white;
+      padding-top: 60px;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    .side-menu a {
+      display: block;
+      padding: 12px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .side-menu a:hover {
+      background: #444;
+    }
+
+    .side-menu.menu-open {
+      left: 0;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      z-index: 999;
+    }
+
+    #overlay.active {
+      display: block;
     }
 
     main {
       text-align: center;
-      margin: 60px 20px;
+      padding: 60px 20px;
     }
 
-    main h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
     }
 
-    main p {
-      font-size: 18px;
-      max-width: 500px;
-      margin: auto;
+    p {
+      font-size: 1.2em;
     }
 
-    .buttons {
-      margin-top: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #007BFF;
+    .buttons a {
+      margin: 10px;
+      padding: 10px 20px;
+      background: var(--accent);
       color: white;
       text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 25px;
-      margin: 10px;
-      font-size: 16px;
+      border-radius: 20px;
+      display: inline-block;
     }
 
     footer {
-      background: #111;
+      background: #0d1117;
       color: #aaa;
       text-align: center;
+      font-size: 13px;
       padding: 20px;
-      font-size: 14px;
     }
 
-    footer .socials {
-      margin-bottom: 10px;
-    }
-
-    footer .socials a {
-      color: #aaa;
+    .social-icons img {
+      width: 20px;
       margin: 0 8px;
-      text-decoration: none;
-    }
-
-    /* Slide-in menu styles */
-    #menu {
-      position: fixed;
-      top: 0;
-      left: -200px;
-      height: 100%;
-      width: 200px;
-      background: #333;
-      flex-direction: column;
-      padding: 60px 20px;
-      transition: left 0.3s;
-    }
-
-    #menu.active {
-      left: 0;
-    }
-
-    #menu a {
-      color: #fff;
-      margin: 15px 0;
-      font-size: 18px;
-    }
-
-    /* Click-outside overlay */
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-    }
-
-    .menu-overlay.active {
-      display: block;
-      z-index: 1;
+      vertical-align: middle;
     }
   </style>
 </head>
 <body>
-  <div class="menu-overlay" id="overlay"></div>
+  <div class="side-menu" id="sideMenu">
+    <a href="/">Home</a>
+    <a href="/About/">About</a>
+    <a href="/Contact/">Contact</a>
+  </div>
+
+  <div id="overlay"></div>
 
   <header>
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <nav id="menu">
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </nav>
-    <div class="toggle-icon" onclick="toggleDarkMode()" id="themeToggle">☀️</div>
+    <div class="menu-icon" id="menuIcon">
+      <i class="fas fa-bars"></i>
+    </div>
+    <button class="dark-toggle" id="darkToggle">🌙</button>
   </header>
 
   <main>
     <h1>Smart Hunk</h1>
     <p>Your gateway to creativity, inspiration, and digital exploration.</p>
     <div class="buttons">
-      <a href="#" class="btn">About</a>
-      <a href="#" class="btn">Contact</a>
+      <a href="/About/">About</a>
+      <a href="/Contact/">Contact</a>
     </div>
   </main>
 
   <footer>
-    <div class="socials">
-      <a href="https://youtube.com/@SmartHunkOfficial" target="_blank">YouTube</a>
-      <a href="https://github.com/SmartHunk" target="_blank">GitHub</a>
-      <a href="https://instagram.com/SmartHunkOfficial" target="_blank">Instagram</a>
+    <div class="social-icons">
+      <a href="https://youtube.com/@SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+      </a>
+      <a href="https://github.com/SmartHunk" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+      </a>
+      <a href="https://instagram.com/SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+      </a>
     </div>
-    <p>© 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.</p>
+    <div>
+      © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
+    </div>
   </footer>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      const overlay = document.getElementById('overlay');
-      menu.classList.toggle('active');
-      overlay.classList.toggle('active');
-    }
+    const menu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+    const menuIcon = document.getElementById('menuIcon');
+    const darkToggle = document.getElementById('darkToggle');
 
-    document.getElementById('overlay').addEventListener('click', () => {
-      document.getElementById('menu').classList.remove('active');
-      document.getElementById('overlay').classList.remove('active');
+    menuIcon.addEventListener('click', () => {
+      menu.classList.add('menu-open');
+      overlay.classList.add('active');
     });
 
-    function toggleDarkMode() {
-      const body = document.body;
-      body.classList.toggle('dark-mode');
-      const isDark = body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDark);
-      document.getElementById('themeToggle').textContent = isDark ? '🌙' : '☀️';
+    overlay.addEventListener('click', () => {
+      menu.classList.remove('menu-open');
+      overlay.classList.remove('active');
+    });
+
+    function setDarkMode(on) {
+      document.body.classList.toggle('dark', on);
+      menu.classList.toggle('dark', on);
+      darkToggle.textContent = on ? '☀️' : '🌙';
+      localStorage.setItem('darkMode', on);
     }
 
-    window.onload = function () {
-      const isDark = localStorage.getItem('darkMode') === 'true';
-      if (isDark) {
-        document.body.classList.add('dark-mode');
-        document.getElementById('themeToggle').textContent = '🌙';
-      }
-    };
+    darkToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      setDarkMode(!isDark);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('darkMode') === 'true';
+      setDarkMode(saved);
+    });
   </script>
 </body>
-</html>
+          </html>
