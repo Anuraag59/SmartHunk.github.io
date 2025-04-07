@@ -4,180 +4,288 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart Hunk</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" />
+  
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background-color: #f0f0f0;
-      color: #000;
-      transition: background-color 0.3s, color 0.3s;
+    :root {
+      --bg-light: linear-gradient(135deg, #ff8a00, #e52e71);
+      --bg-dark: #1a1a1a;
+      --text-light: white;
+      --text-dark: #e52e71;
     }
 
-    .dark-mode {
-      background-color: #121212;
-      color: #fff;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.5s, color 0.5s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
+      position: relative;
+      padding: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem;
-      background: inherit;
-      position: relative;
     }
 
-    .menu-icon {
-      font-size: 1.5rem;
+    /* Hamburger Menu */
+    .hamburger {
+      font-size: 24px;
       cursor: pointer;
+      color: white;
+      z-index: 101;
     }
 
-    #modeIcon {
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 50%;
-      border: 2px solid #007BFF;
-      color: #007BFF;
-    }
-
-    .center-text {
-      text-align: center;
-      margin: 2rem 1rem;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .buttons button {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 1.5rem;
-      background-color: #007BFF;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .buttons button:hover {
-      background-color: #0056b3;
-    }
-
-    #menu {
+    .sidebar {
       position: fixed;
       top: 0;
       left: -250px;
-      width: 200px;
+      width: 250px;
       height: 100%;
-      background-color: #1a1a1a;
-      color: #fff;
-      padding: 2rem 1rem;
+      background: #333;
+      color: white;
       transition: left 0.3s;
-      z-index: 1000;
+      padding: 60px 20px;
+      z-index: 100;
     }
 
-    #menu.open {
+    .sidebar.active {
       left: 0;
     }
 
-    #menu a {
+    .sidebar a {
       display: block;
       color: white;
-      margin: 1rem 0;
       text-decoration: none;
-      font-size: 1.2rem;
+      margin: 20px 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+      display: none;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    .toggle-icon {
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .toggle-dark {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid white;
+      animation: zoomIn 1s ease-out;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 3em;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .buttons a {
+      text-decoration: none;
+      background: white;
+      color: #e52e71;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .buttons a:hover {
+      background: #f2f2f2;
+      transform: scale(1.05);
     }
 
     footer {
-      background-color: #0d1117;
-      color: #c9d1d9;
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      padding: 15px;
       text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
+      font-size: 13px;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    .socials {
-      margin-bottom: 0.5rem;
+    footer .social-icons img {
+      width: 18px;
+      margin: 0 8px;
+      vertical-align: middle;
     }
 
-    .socials a {
-      margin: 0 0.5rem;
-      color: inherit;
-      font-size: 1.3rem;
-      transition: transform 0.2s;
+    .dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
     }
 
-    .socials a:hover {
-      transform: scale(1.2);
+    .dark-mode .buttons a {
+      background: var(--text-dark);
+      color: white;
+    }
+
+    .dark-mode .buttons a:hover {
+      background: #333;
+    }
+
+    .dark-mode .toggle-dark {
+      color: var(--text-dark);
+    }
+
+    @media screen and (max-width: 500px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .buttons a {
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="menu">
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar" id="sidebar">
+    <a href="About/">About</a>
+    <a href="Contact/">Contact</a>
   </div>
 
   <header>
-    <i class="fas fa-bars menu-icon" onclick="toggleMenu()"></i>
-    <i class="fas fa-moon" id="modeIcon" onclick="toggleDarkMode()"></i>
+    <div class="hamburger" onclick="toggleSidebar()">
+      <i class="ri-menu-line"></i>
+    </div>
+    <button class="toggle-dark" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+      <i id="mode-icon" class="ri-moon-line"></i>
+    </button>
   </header>
 
-  <div class="center-text">
+  <main>
+    <img src="logo.png" alt="Smart Hunk Logo">
     <h1>Smart Hunk</h1>
-    <p>Your gateway to creativity, inspiration, and digital exploration.</p>
-  </div>
+    <p>Welcome to my colorful and creative space!</p>
 
-  <div class="buttons">
-    <button onclick="location.href='#about'">About</button>
-    <button onclick="location.href='#contact'">Contact</button>
-  </div>
+    <div class="buttons">
+      <a href="About/">About</a>
+      <a href="Contact/">Contact</a>
+    </div>
+  </main>
 
   <footer>
-    <div class="socials">
-      <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    <div class="social-icons">
+      <a href="https://youtube.com/@SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+      </a>
+      <a href="https://github.com/SmartHunk" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+      </a>
+      <a href="https://instagram.com/SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+      </a>
     </div>
-    <p>© 2024–2025 Smart Hunk. All rights reserved.</p>
+    © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
   </footer>
 
   <script>
-    const body = document.body;
-    const menu = document.getElementById("menu");
-    const modeIcon = document.getElementById("modeIcon");
-
-    function toggleMenu() {
-      menu.classList.toggle("open");
-    }
+    const modeIcon = document.getElementById("mode-icon");
 
     function toggleDarkMode() {
+      const body = document.body;
       body.classList.toggle("dark-mode");
-      const isDark = body.classList.contains("dark-mode");
-      localStorage.setItem("darkMode", isDark);
-      modeIcon.className = isDark ? "fas fa-sun" : "fas fa-moon";
+
+      if (body.classList.contains("dark-mode")) {
+        modeIcon.classList.replace("ri-moon-line", "ri-sun-line");
+        localStorage.setItem("mode", "dark");
+      } else {
+        modeIcon.classList.replace("ri-sun-line", "ri-moon-line");
+        localStorage.setItem("mode", "light");
+      }
     }
 
+    // Load saved mode
     window.onload = () => {
-      const savedMode = localStorage.getItem("darkMode") === "true";
-      if (savedMode) {
-        body.classList.add("dark-mode");
-        modeIcon.className = "fas fa-sun";
+      if (localStorage.getItem("mode") === "dark") {
+        document.body.classList.add("dark-mode");
+        modeIcon.classList.replace("ri-moon-line", "ri-sun-line");
       }
     };
 
-    // Close slide menu when clicking outside
-    document.addEventListener('click', function(event) {
-      const isClickInside = menu.contains(event.target) || event.target.classList.contains('menu-icon');
-      if (!isClickInside) {
-        menu.classList.remove("open");
-      }
-    });
+    // Sidebar
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.querySelector(".overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
   </script>
 </body>
   </html>
