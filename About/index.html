@@ -4,13 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About – Smart Hunk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
+    :root {
+      --bg-light: #f4f4f4;
+      --bg-dark: #1a1a1a;
+      --text-light: #000;
+      --text-dark: #fff;
+      --accent: #007bff;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #f7c59f, #ff9a9e);
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
       margin: 0;
-      padding: 0;
-      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     header {
@@ -20,13 +35,98 @@
       color: white;
     }
 
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #222;
+      color: white;
+    }
+
+    .menu-icon, .dark-mode-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100%;
+      background: #222;
+      color: white;
+      padding-top: 60px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .menu a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .menu a:hover {
+      background-color: #444;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
     .container {
       max-width: 800px;
       margin: 2rem auto;
-      padding: 1rem;
+      padding: 1rem 2rem;
       background: white;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    body.dark .container {
+      background: #2a2a2a;
+    }
+
+    h1, h2 {
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    h1::after, h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      margin-top: 8px;
+      background-color: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: #ccc;
+      margin: 2rem 0;
     }
 
     .back-home {
@@ -37,15 +137,41 @@
       color: white;
       text-decoration: none;
       border-radius: 5px;
-      transition: background 0.3s;
     }
 
     .back-home:hover {
       background-color: #e65550;
     }
+
+    footer {
+      background: #0d1117;
+      color: #aaa;
+      text-align: center;
+      font-size: 13px;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .social-icons img {
+      width: 20px;
+      margin: 0 8px;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
+
+  <div class="navbar">
+    <button class="menu-icon" id="openMenu"><i class="fas fa-bars"></i></button>
+    <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
+  </div>
+
+  <div class="menu" id="menu">
+    <a href="/">Home</a>
+    <a href="/About/">About</a>
+    <a href="/Contact/">Contact</a>
+  </div>
+  <div class="overlay" id="overlay"></div>
 
   <header>
     <h1>About Smart Hunk</h1>
@@ -56,8 +182,12 @@
     <h2>Who am I?</h2>
     <p>Hey! I’m a 15-year-old tech enthusiast who loves coding, dark mode, and building cool stuff online. This website is my playground where I try out HTML, experiment with design, and learn new things every day!</p>
 
+    <div class="section-divider"></div>
+
     <h2>Why "Smart Hunk"?</h2>
     <p>Fun fact—my mom actually suggested the name "Smart Hunk" a few years ago when I started my YouTube channel. It stuck, and now it’s my online brand!</p>
+
+    <div class="section-divider"></div>
 
     <h2>What’s the plan?</h2>
     <p>I want to build big things, become an entrepreneur, and make the web a cooler place. And yep, I’m just getting started!</p>
@@ -65,5 +195,56 @@
     <a class="back-home" href="../">← Back to Home</a>
   </div>
 
+  <footer>
+    <div class="social-icons">
+      <a href="https://youtube.com/@SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+      </a>
+      <a href="https://github.com/SmartHunk" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+      </a>
+      <a href="https://instagram.com/SmartHunkOfficial" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+      </a>
+    </div>
+    <div>
+      © 2024–2025 <strong>Smart Hunk</strong>. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const openMenuBtn = document.getElementById('openMenu');
+    const menu = document.getElementById('menu');
+    const overlay = document.getElementById('overlay');
+    const toggleBtn = document.getElementById('darkModeToggle');
+
+    openMenuBtn.addEventListener('click', () => {
+      menu.classList.add('open');
+      overlay.classList.add('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      menu.classList.remove('open');
+      overlay.classList.remove('active');
+    });
+
+    function setDarkMode(on) {
+      document.body.classList.toggle('dark', on);
+      menu.classList.toggle('dark', on);
+      toggleBtn.textContent = on ? '☀️' : '🌙';
+      localStorage.setItem('darkMode', on);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      setDarkMode(!isDark);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('darkMode') === 'true';
+      setDarkMode(saved);
+    });
+  </script>
+
 </body>
-</html>
+          </html>
