@@ -1,13 +1,16 @@
-<div class="side-menu" id="sideMenu">
-  <a href="/">Home</a>
-  <a href="/About/">About</a>
-  <a href="/Contact/">Contact</a>
-</div>
-<div class="overlay" id="overlay"></div>
-
-<div class="topbar">
-  <div class="menu-icon" onclick="toggleMenu()">
-    <i class="fas fa-bars"></i>
-  </div>
-  <button class="dark-toggle" onclick="toggleDarkMode()" id="darkModeBtn">🌙</button>
-</div>
+document.getElementById("header").innerHTML = `
+  <header>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../About/index.html">About</a>
+      <a href="../Contact/index.html">Contact</a>
+    </nav>
+    <button id="menuToggle">☰</button>
+    <button id="darkModeToggle">🌙</button>
+    <div id="slideMenu">
+      <a href="../index.html">Home</a><br>
+      <a href="../About/index.html">About</a><br>
+      <a href="../Contact/index.html">Contact</a>
+    </div>
+  </header>
+`;
