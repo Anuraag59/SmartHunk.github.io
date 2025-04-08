@@ -1,30 +1,29 @@
-const sideMenu = document.getElementById('sideMenu');
-const overlay = document.getElementById('overlay');
-const darkModeBtn = document.getElementById('darkModeBtn');
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("darkModeToggle");
+  const menuToggle = document.getElementById("menuToggle");
+  const slideMenu = document.getElementById("slideMenu");
 
-function toggleMenu() {
-  sideMenu.classList.toggle('menu-open');
-  overlay.classList.toggle('active');
-}
+  // Apply saved dark mode
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+    toggle.textContent = "☀️";
+  }
 
-overlay?.addEventListener('click', () => {
-  sideMenu.classList.remove('menu-open');
-  overlay.classList.remove('active');
-});
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    toggle.textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("darkMode", isDark);
+  });
 
-function setDarkMode(on) {
-  document.body.classList.toggle('dark-mode', on);
-  sideMenu?.classList.toggle('dark-mode', on);
-  if (darkModeBtn) darkModeBtn.textContent = on ? '☀️' : '🌙';
-  localStorage.setItem('darkMode', on);
-}
+  menuToggle.addEventListener("click", () => {
+    slideMenu.classList.toggle("open");
+  });
 
-darkModeBtn?.addEventListener('click', () => {
-  const isDark = document.body.classList.contains('dark-mode');
-  setDarkMode(!isDark);
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('darkMode') === 'true';
-  setDarkMode(saved);
+  // Close menu on outside click
+  window.addEventListener("click", (e) => {
+    if (!slideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+      slideMenu.classList.remove("open");
+    }
+  });
 });
