@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>About – Smart Hunk</title>
+  <link rel="stylesheet" href="/assets/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/styles.css" />
 </head>
 <body>
+  <div id="header"></div>
 
-  <!-- Dynamic Header and Footer Injection -->
-  <script>
-    fetch("../assets/header.html")
-      .then(res => res.text())
-      .then(data => {
-        document.body.insertAdjacentHTML("afterbegin", data);
-      });
-
-    fetch("../assets/footer.html")
-      .then(res => res.text())
-      .then(data => {
-        document.body.insertAdjacentHTML("beforeend", data);
-      });
-  </script>
-
-  <header>
+  <section class="intro blue">
     <h1>About Smart Hunk</h1>
     <p>Learn more about the creator and this awesome site</p>
-  </header>
+  </section>
 
-  <div class="container">
-    <h2>Who am I?</h2>
-    <p>Hey! I’m a 15-year-old tech enthusiast who loves coding, dark mode, and building cool stuff online. This website is my playground where I try out HTML, experiment with design, and learn new things every day!</p>
-
-    <div class="divider"></div>
-
-    <h2>Why "Smart Hunk"?</h2>
-    <p>Fun fact—my mom actually suggested the name "Smart Hunk" a few years ago when I started my YouTube channel. It stuck, and now it’s my online brand!</p>
+  <section class="content">
+    <div class="card">
+      <h2>Who am I?</h2>
+      <p>Hey! I'm a 15-year-old tech enthusiast who loves coding, dark mode, and building cool stuff online. This website is my playground where I try out HTML, experiment with design, and learn new things every day!</p>
+    </div>
 
     <div class="divider"></div>
 
-    <h2>What’s the plan?</h2>
-    <p>I want to build big things, become an entrepreneur, and make the web a cooler place. And yep, I’m just getting started!</p>
+    <div class="card">
+      <h2>Why "Smart Hunk"?</h2>
+      <p>Fun fact—my mom actually suggested the name "Smart Hunk" a few years ago when I started my YouTube channel. It stuck, and now it’s my online brand!</p>
+    </div>
 
-    <a class="back-home" href="../">← Back to Home</a>
-  </div>
+    <div class="divider"></div>
 
-  <script src="../assets/shared.js"></script>
-  <script src="../assets/header.js"></script>
-  <script src="../assets/footer.js"></script>
-</body>
+    <div class="card">
+      <h2>What’s the plan?</h2>
+      <p>I want to build big things, become an entrepreneur, and make the web a cooler place. And yep, I’m just getting started!</p>
+    </div>
+
+    <a class="btn" href="/">← Back to Home</a>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/assets/shared.js"></script>
+  <script src="/assets/header.js"></script>
+  <script src="/assets/footer.js"></script>
 </body>
 </html>
